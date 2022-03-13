@@ -12,11 +12,25 @@ public class Health : MonoBehaviour
     public Sprite fullHeart;
     public Sprite emptyHeart;
 
+    private Generator _generator;
+
     private void FixedUpdate()
     {
         if(health > numOfHearts)
         {
             health = numOfHearts;
+        }
+        if (health == 0)
+        {
+            _generator = GetComponent<Generator>();
+            StopCoroutine(_generator.Difficlty());
+            _generator._difficultyUp = 2500;
+            _generator.GetQuestionForSubtraction();           
+
+            numOfHearts = 3;
+            health = numOfHearts;
+
+            Debug.Log("Restart");
         }
         for (int i = 0; i < hearts.Length; i++)
         { 
@@ -30,5 +44,4 @@ public class Health : MonoBehaviour
             }
         }
     }
-
 }

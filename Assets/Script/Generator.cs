@@ -10,12 +10,11 @@ public class Generator : MonoBehaviour
     [SerializeField] private Text example;
     [SerializeField] private Text[] buttonText;
     [SerializeField] private Button[] button;
-    [SerializeField] private float _difficultyUp;
+    [SerializeField] internal float _difficultyUp;
 
     private ButtonCounter _counter;
     private Health _health;
-    private Timer _timer;
-    
+    private Timer _timer;  
 
     public void Start()
     {
