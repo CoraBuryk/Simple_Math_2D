@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class ButtonCounter : MonoBehaviour
 {
@@ -16,11 +17,16 @@ public class ButtonCounter : MonoBehaviour
     public void Plus()
     {
         counter ++;
-        Debug.Log("Correct answer. Score increased");
+        Debug.Log("Correct answer. Score increased.");
     }
     public void ToZero()
     {
         counter = 0;
         Debug.Log("Incorrect answer. Score down to zero");
+    }
+    public void DoublePlus()
+    {
+        counter += 2;
+        Debug.Log("Correct answer. Score increased. Time bonus");
     }
 }

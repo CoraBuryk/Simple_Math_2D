@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 
 public class Generator : MonoBehaviour
 {
- 
+    public Numbers numbers;
     [SerializeField] private Text example;
     [SerializeField] private Text[] buttonText;
     [SerializeField] private Button[] button;
     [SerializeField] private float _difficultyUp;
-    private ButtonCounter _counter;
-    public Numbers numbers;
 
+    private ButtonCounter _counter;
+    private Health _health;
+    private Timer _timer;
+    
 
     public void Start()
     {
@@ -24,29 +26,29 @@ public class Generator : MonoBehaviour
     {
         numbers.num1 = Random.Range(0, 100);
         numbers.num2 = Random.Range(0, numbers.num1);
-        var content = Random.Range(numbers.res - 2, numbers.res + 2);
+        var content = Random.Range(numbers.result - 2, numbers.result + 2);
 
-        numbers.res = numbers.num1 - numbers.num2;
+        numbers.result = numbers.num1 - numbers.num2;
         
         example.text = $"{numbers.num1} - {numbers.num2} = ?";
 
-        if (numbers.res > content)
+        if (numbers.result > content)
         {
-            buttonText[0].text = $"{numbers.res - 2}";
-            buttonText[1].text = $"{numbers.res - 1}";
-            buttonText[2].text = $"{numbers.res}";
+            buttonText[0].text = $"{numbers.result - 2}";
+            buttonText[1].text = $"{numbers.result - 1}";
+            buttonText[2].text = $"{numbers.result}";
         }
-        else if (numbers.res == content)
+        else if (numbers.result == content)
         {
-            buttonText[0].text = $"{numbers.res - 1}";
-            buttonText[1].text = $"{numbers.res}";
-            buttonText[2].text = $"{numbers.res + 1}";
+            buttonText[0].text = $"{numbers.result - 1}";
+            buttonText[1].text = $"{numbers.result}";
+            buttonText[2].text = $"{numbers.result + 1}";
         }
-        else if (numbers.res < content)
+        else if (numbers.result < content)
         {
-            buttonText[0].text = $"{numbers.res}";
-            buttonText[1].text = $"{numbers.res + 1}";
-            buttonText[2].text = $"{numbers.res + 2}";
+            buttonText[0].text = $"{numbers.result}";
+            buttonText[1].text = $"{numbers.result + 1}";
+            buttonText[2].text = $"{numbers.result + 2}";
         }
     }
 
@@ -54,29 +56,29 @@ public class Generator : MonoBehaviour
     {
         numbers.num1 = Random.Range(0, 100);
         numbers.num2 = Random.Range(1, numbers.num1);
-        var content = Random.Range(numbers.res - 2, numbers.res + 2);
+        var content = Random.Range(numbers.result - 2, numbers.result + 2);
 
-        numbers.res = numbers.num1 / numbers.num2;
+        numbers.result = numbers.num1 / numbers.num2;
 
         example.text = $"{numbers.num1} / {numbers.num2} = ?";
 
-        if (numbers.res > content)
+        if (numbers.result > content)
         {
-            buttonText[0].text = $"{numbers.res - 2}";
-            buttonText[1].text = $"{numbers.res - 1}";
-            buttonText[2].text = $"{numbers.res}";
+            buttonText[0].text = $"{numbers.result - 2}";
+            buttonText[1].text = $"{numbers.result - 1}";
+            buttonText[2].text = $"{numbers.result}";
         }
-        else if (numbers.res == content)
+        else if (numbers.result == content)
         {
-            buttonText[0].text = $"{numbers.res - 1}";
-            buttonText[1].text = $"{numbers.res}";
-            buttonText[2].text = $"{numbers.res + 1}";
+            buttonText[0].text = $"{numbers.result - 1}";
+            buttonText[1].text = $"{numbers.result}";
+            buttonText[2].text = $"{numbers.result + 1}";
         }
-        else if (numbers.res < content)
+        else if (numbers.result < content)
         {
-            buttonText[0].text = $"{numbers.res}";
-            buttonText[1].text = $"{numbers.res + 1}";
-            buttonText[2].text = $"{numbers.res + 2}";
+            buttonText[0].text = $"{numbers.result}";
+            buttonText[1].text = $"{numbers.result + 1}";
+            buttonText[2].text = $"{numbers.result + 2}";
         }
     }
 
@@ -84,45 +86,51 @@ public class Generator : MonoBehaviour
     {
         numbers.num1 = Random.Range(0, 50);
         numbers.num2 = Random.Range(0, numbers.num1);
-        var content = Random.Range(numbers.res - 2, numbers.res + 2);
+        var content = Random.Range(numbers.result - 2, numbers.result + 2);
 
-        numbers.res = numbers.num1 * numbers.num2;
+        numbers.result = numbers.num1 * numbers.num2;
 
         example.text = $"{numbers.num1} * {numbers.num2} = ?";
 
-        if (numbers.res > content)
+        if (numbers.result > content)
         {
-            buttonText[0].text = $"{numbers.res - 2}";
-            buttonText[1].text = $"{numbers.res - 1}";
-            buttonText[2].text = $"{numbers.res}";
+            buttonText[0].text = $"{numbers.result - 2}";
+            buttonText[1].text = $"{numbers.result - 1}";
+            buttonText[2].text = $"{numbers.result}";
         }
-        else if (numbers.res == content)
+        else if (numbers.result == content)
         {
-            buttonText[0].text = $"{numbers.res - 1}";
-            buttonText[1].text = $"{numbers.res}";
-            buttonText[2].text = $"{numbers.res + 1}";
+            buttonText[0].text = $"{numbers.result - 1}";
+            buttonText[1].text = $"{numbers.result}";
+            buttonText[2].text = $"{numbers.result + 1}";
         }
-        else if (numbers.res < content)
+        else if (numbers.result < content)
         {
-            buttonText[0].text = $"{numbers.res}";
-            buttonText[1].text = $"{numbers.res + 1}";
-            buttonText[2].text = $"{numbers.res + 2}";
+            buttonText[0].text = $"{numbers.result}";
+            buttonText[1].text = $"{numbers.result + 1}";
+            buttonText[2].text = $"{numbers.result + 2}";
         }
     }
     public void AnswerButton(int index)
     {
         _counter = GetComponent<ButtonCounter>();
-        Health health = GetComponent<Health>();
+        _health = GetComponent<Health>();
+        _timer = GetComponent<Timer>();
 
-        if (buttonText[index].text.ToString() == numbers.res.ToString())
-        {
-            _counter.Plus();
+        if (buttonText[index].text.ToString() == numbers.result.ToString())
+        {         
+            if(_timer._timeBonus > 15)
+            {
+                _counter.DoublePlus();
+            }else if(_timer._timeBonus <= 15)
+            {
+            _counter.Plus(); 
+            }          
         }
         else
         {
-            _counter.ToZero();
-            
-            health.numOfHearts -= 1;
+            _counter.ToZero();          
+            _health.numOfHearts -= 1;
         }
 
         if (_difficultyUp <= 2500f) //about 10 min
@@ -145,7 +153,6 @@ public class Generator : MonoBehaviour
             StartCoroutine(Difficlty());
             Debug.Log("Difficulty: Multiply");
         }
-
     }
     public IEnumerator Difficlty()
     {
@@ -161,5 +168,5 @@ public class Numbers
 {
     public int num1; 
     public int num2;
-    public int res;
+    public int result;
 }
