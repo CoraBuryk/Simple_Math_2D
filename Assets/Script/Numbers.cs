@@ -29,7 +29,7 @@ namespace Assets.Script
                 Subtraction();
             } while (Result >= 4 || Result == 0);
 
-            MathExample = $"{Num1} - {Num2} = ? {Result}";
+            MathExample = $"{Num1} - {Num2} = ?";
             Subtraction();
         }
 
@@ -51,7 +51,7 @@ namespace Assets.Script
                 Division();
             } while (Result >= 4 || Result == 0);
 
-            MathExample = $"{Num1} / {Num2} = ? {Result}";
+            MathExample = $"{Num1} / {Num2} = ?";
             Division();
         }
 
@@ -70,7 +70,7 @@ namespace Assets.Script
                 SubtractionUp();
             } while (Result >= 4 || Result == 0);
 
-            MathExample = $"{Num1} - {Num2} = ? {Result}";
+            MathExample = $"{Num1} - {Num2} = ?}";
             SubtractionUp();
         }
 
@@ -92,7 +92,7 @@ namespace Assets.Script
                 DivisionUp();
             } while (Result >= 4 || Result == 0);
 
-            MathExample = $"{Num1} / {Num2} = ? {Result}";
+            MathExample = $"{Num1} / {Num2} = ?";
             DivisionUp();
         }
     }
