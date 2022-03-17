@@ -1,3 +1,4 @@
+using Assets.Script;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,25 +9,28 @@ public class Timer : MonoBehaviour
     [SerializeField] private float time;
     [SerializeField] private Text timerText;
 
-    private Generator _generator;
-    private Health _health;
-
     private float _timeLeft;
-    internal float _timeBonus;
+    private GeneratorBehavior _generator;
+
+    private void Awake()
+    {
+        _generator = GetComponent<GeneratorBehavior>();
+    }
 
     public IEnumerator StartTimer()
     {
         while(_timeLeft > 0)
         {
             _timeLeft -= Time.deltaTime;
-            _timeBonus = _timeLeft;
+            Bonus.TimeBonus = _timeLeft;
             UpdateTimeText();
             yield return null;
         }
     }
+
     public void TimerSwitch()
     {
-        _timeLeft = 30f;
+        _timeLeft = 15f;
     }
 
     public void Start()
@@ -39,14 +43,10 @@ public class Timer : MonoBehaviour
     {
         if(_timeLeft < 0)
         {
-            _timeLeft = 30;
-            _generator = GetComponent<Generator>();
+            _timeLeft = 15;          
             _generator.GetQuestionForSubtraction();
-            Debug.Log("Time's up. New question");
-            _health = GetComponent<Health>();
-            _health.numOfHearts -= 1;
+            HealthController.HealthDecreased(3);
         } 
-
         float seconds = Mathf.FloorToInt(_timeLeft % 60);
         timerText.text = string.Format("{00:00}", seconds); 
     }

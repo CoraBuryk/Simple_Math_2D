@@ -1,3 +1,4 @@
+using Assets.Script;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,35 +7,33 @@ using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
-    public float health;
-    public int numOfHearts;
-    public Image[] hearts;
-    public Sprite fullHeart;
-    public Sprite emptyHeart;
+    [SerializeField] private float health;
+    [SerializeField] private Image[] hearts;
+    [SerializeField] private Sprite fullHeart;
+    [SerializeField] private Sprite emptyHeart;
 
-    private Generator _generator;
+    private Difficulty difficulty;
+
+    private void Awake()
+    {
+        difficulty = GetComponent<Difficulty>();
+    }
 
     private void FixedUpdate()
     {
-        if(health > numOfHearts)
+        if (health > HealthController.NumOfHeart)
         {
-            health = numOfHearts;
+            health = HealthController.NumOfHeart;
         }
         if (health == 0)
         {
-            _generator = GetComponent<Generator>();
-            StopCoroutine(_generator.Difficlty());
-            _generator._difficultyUp = 2500;
-            _generator.GetQuestionForSubtraction();           
-
-            numOfHearts = 3;
-            health = numOfHearts;
-
-            Debug.Log("Restart");
+            difficulty.RestartDifficulty();
+            HealthController.RunOutOfHearts();
+            health = HealthController.NumOfHeart;
         }
         for (int i = 0; i < hearts.Length; i++)
         { 
-            if (i< Mathf.RoundToInt(health))
+            if (i < Mathf.RoundToInt(health))
             {
                 hearts[i].sprite = fullHeart;
             }
