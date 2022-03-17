@@ -70,7 +70,7 @@ namespace Assets.Script
                 SubtractionUp();
             } while (Result >= 4 || Result == 0);
 
-            MathExample = $"{Num1} - {Num2} = ?}";
+            MathExample = $"{Num1} - {Num2} = ?";
             SubtractionUp();
         }
 
