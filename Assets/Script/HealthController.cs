@@ -1,26 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Script
 {
-    [Serializable]
-    public static class HealthController
+    public class HealthController : MonoBehaviour
     {
-        public static int NumOfHeart { get; set; } = 3;
-        
-        public static void HealthDecreased(int num)
+        public int NumOfHeart { get; set; } = 3;
+        public event Action HealthControl;
+
+        private Difficulty _difficulty;
+
+        private void Awake()
         {
-            NumOfHeart--;
+            _difficulty = GetComponent<Difficulty>();  
         }
-        public static void RunOutOfHearts()
+
+        public void HeartControl()
         {
-            if(NumOfHeart == 0)
+            //if(NumOfHeart <=3)
+            NumOfHeart--;
+
+            if (NumOfHeart == 0)
             {
                 NumOfHeart = 3;
+                _difficulty.RestartDifficulty();
             }
+
+            HealthControl?.Invoke();
         }
     }
 }

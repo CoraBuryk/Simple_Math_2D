@@ -1,66 +1,50 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Threading.Tasks;
-using Assets.Script;
 
-public class GeneratorBehavior : MonoBehaviour
+namespace Assets.Script
 {
-    [SerializeField] private Text example;
-    [SerializeField] private Text[] buttonText;
-    [SerializeField] private Button[] button;
-
-    public Numbers numbers;
-    private Difficulty _difficulty;
- 
-    private void Awake()
+    public class GeneratorBehavior : MonoBehaviour
     {
-        _difficulty = GetComponent<Difficulty>();
+        [SerializeField] private TextMeshProUGUI example;
+        [SerializeField] internal TextMeshProUGUI[] ButtonText;
+        [SerializeField] private Button[] button;
 
-        buttonText[0].text = "1";
-        buttonText[1].text = "2";
-        buttonText[2].text = "3";
+        public Numbers numbers;
 
-        GetQuestionForSubtraction();
-    }
+        public int Total { get => numbers.Result; private set => Total = value; }
 
-    public void GetQuestionForSubtraction()
-    {
-        numbers.DoSubtraction();
-        example.text = numbers.MathExample;
-    }
-
-    public void GetQuestionForDivision()
-    {
-        numbers.DoDivision();
-        example.text = numbers.MathExample;
-    }
-
-    public void GetQuestionForSubtractionUp()
-    {
-        numbers.DoSubtractionUp();
-        example.text = numbers.MathExample;
-    }
-
-    public void GetQuestionForDivisionUp()
-    {
-        numbers.DoDivisionUp();
-        example.text = numbers.MathExample;
-    }
-
-    public void AnswerButton(int index)
-    {
-        if (buttonText[index].text.ToString() == numbers.Result.ToString())
+        private void Awake()
         {
-            Bonus.ScoreUpdate();
-            _difficulty.Variation();
+            ButtonText[0].text = "1";
+            ButtonText[1].text = "2";
+            ButtonText[2].text = "3";
+
+            GetQuestionForLevelOne();
         }
-        else
+
+        public void GetQuestionForLevelOne()
         {
-            ScoreCounter.ScoreToZero += ScoreCounter.ToZero;
-            HealthController.HealthDecreased(3);
-            GetQuestionForSubtraction();
+            numbers.DoLevelOne();
+            example.text = numbers.MathExample;
+        }
+
+        public void GetQuestionForLevelTwo()
+        {
+            numbers.DoLevelTwo();
+            example.text = numbers.MathExample;
+        }
+
+        public void GetQuestionForLevelThree()
+        {
+            numbers.DoLevelThree();
+            example.text = numbers.MathExample;
+        }
+
+        public void GetQuestionForLevelFour()
+        {
+            numbers.DoLevelFour();
+            example.text = numbers.MathExample;
         }
     }
 }

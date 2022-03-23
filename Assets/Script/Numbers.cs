@@ -1,20 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Assets.Script
 {
-    [System.Serializable]
+    [Serializable]
     public class Numbers
     {
-        public int Result { get; set; }
+        public int Result { get; private set; }
         public int Num1 { get; set; }
         public int Num2 { get; set; }
-        public string MathExample { get; set; }
+        public int X { get; set; }
+        public string MathExample { get; private set; }
 
-        public void Subtraction()
+        public void LevelOne()
         {
             Random random = new Random();
             Num1 = random.Next(1, 100);
@@ -22,78 +19,81 @@ namespace Assets.Script
             Result = Num1 - Num2;
         }
 
-        public void DoSubtraction()
+        public void DoLevelOne()
         {
             do
             {
-                Subtraction();
+                LevelOne();
             } while (Result >= 4 || Result == 0);
 
             MathExample = $"{Num1} - {Num2} = ?";
-            Subtraction();
+            LevelOne();
         }
 
-        public void Division()
+        public void LevelTwo()
         {
             Random random = new Random();
-            Num1 = random.Next(2, 100);
-            Num2 = random.Next(2, Num1);
-            if(Num1%Num2 == 0 && Num2 * 1 == Num1 || Num2 * 2 == Num1 || Num2 * 3 == Num1)
+            Num1 = random.Next(1, 100);
+            Num2 = random.Next(1, Num1);
+            if(Num1%Num2 == 0 && Num1 * 1 == Num2 || Num2 * 2 == Num1 || Num2 * 3 == Num1)
             {
                 Result = Num1 / Num2;
             } else Result = 0;  
         }
 
-        public void DoDivision()
+        public void DoLevelTwo()
         {
             do
             {
-                Division();
+                LevelTwo();
             } while (Result >= 4 || Result == 0);
 
             MathExample = $"{Num1} / {Num2} = ?";
-            Division();
+            LevelTwo();
         }
 
-        public void SubtractionUp()
+        public void LevelThree()
         {
             Random random = new Random();
-            Num1 = random.Next(100, 1000);
-            Num2 = random.Next(100, Num1);
-            Result = Num1 - Num2;
+            Num1 = random.Next(1, 50);
+            Num2 = random.Next(1, Num1);
+
+            if ((Num1 - Num2) % 2 == 0 && 2 * 1 == (Num1 - Num2) || 2 * 2 == (Num1 - Num2) || 2 * 3 == (Num1 - Num2))
+            {
+                Result = (Num1 - Num2) / 2;
+            }   
+            else Result = 0;
         }
 
-        public void DoSubtractionUp()
+        public void DoLevelThree()
         {
             do
             {
-                SubtractionUp();
+                LevelThree();
             } while (Result >= 4 || Result == 0);
 
-            MathExample = $"{Num1} - {Num2} = ?";
-            SubtractionUp();
+            MathExample = $"({Num1} - {Num2}) / 2 = ?";
+            LevelThree();
         }
 
-        public void DivisionUp()
+        public void LevelFour()
         {
             Random random = new Random();
-            Num1 = random.Next(50, 500);
-            Num2 = random.Next(50, Num1);
-            if (Num1 % Num2 == 0 && Num2 * 1 == Num1 || Num2 * 2 == Num1 || Num2 * 3 == Num1)
-            {
-                Result = Num1 / Num2;
-            }else Result = 0;
+            Num1 = random.Next(1, 50);
+            Num2 = random.Next(1, Num1);
+            X = random.Next(0, 3);
+            Result = (Num1 - Num2) * X;
         }
 
-        public void DoDivisionUp()
+        public void DoLevelFour()
         {
             do
             {
-                DivisionUp();
+                LevelFour();
             } while (Result >= 4 || Result == 0);
 
-            MathExample = $"{Num1} / {Num2} = ?";
-            DivisionUp();
+            MathExample = $" ({Num1} - {Num2}) * {X} = ?";
+            LevelFour();
         }
     }
 }
