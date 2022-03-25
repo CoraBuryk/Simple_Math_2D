@@ -5,28 +5,30 @@ namespace Assets.Script
 {
     public class HealthController : MonoBehaviour
     {
-        public int NumOfHeart { get; set; } = 3;
-        public event Action HealthControl;
+        [SerializeField] private int _maxHealth;
+        public int NumOfHeart { get; set; }
 
-        private Difficulty _difficulty;
+        public event Action HealthChange;
 
         private void Awake()
         {
-            _difficulty = GetComponent<Difficulty>();  
+            NumOfHeart = _maxHealth;
         }
 
-        public void HeartControl()
+        public void HealthDecreased()
         {
-            //if(NumOfHeart <=3)
-            NumOfHeart--;
+            _maxHealth -= 1;
+            NumOfHeart = _maxHealth;
 
-            if (NumOfHeart == 0)
-            {
-                NumOfHeart = 3;
-                _difficulty.RestartDifficulty();
-            }
+            HealthChange?.Invoke();
+        }
 
-            HealthControl?.Invoke();
+        public void ResetHealth()
+        {
+            NumOfHeart = 3;
+            _maxHealth = NumOfHeart;
+
+            HealthChange?.Invoke();
         }
     }
 }

@@ -6,19 +6,13 @@ namespace Assets.Script
 {
     public class TimerController : MonoBehaviour
     {
+        [SerializeField] private GameplayController _gameplayControl;
+
         public float TimeLeft { get; set; }
+
+        public float TimeBonus { get; set; } = 0;
+
         public event Action TimerChange;
-
-        private GeneratorBehavior _generator;
-        private HealthController _health;
-        private Bonus _bonus;
-
-        private void Awake()
-        {
-            _health = GetComponent<HealthController>();
-            _generator = GetComponent<GeneratorBehavior>();
-            _bonus = GetComponent<Bonus>();
-        }
 
         public IEnumerator StartTimer()
         {
@@ -26,20 +20,10 @@ namespace Assets.Script
             while (TimeLeft > 0)
             {
                 TimeLeft -= Time.deltaTime;
-                _bonus.TimeBonus = TimeLeft;
-                TimeZero();
+                TimeBonus = TimeLeft;
+                _gameplayControl.TimeZero();
                 TimerChange?.Invoke();
                 yield return null;
-            }
-        }
-
-        public void TimeZero()
-        {
-            if (TimeLeft < 0)
-            {
-                TimerSwitch();
-                _generator.GetQuestionForLevelOne();
-                _health.HeartControl();
             }
         }
 
