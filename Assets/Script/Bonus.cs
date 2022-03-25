@@ -1,25 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using UnityEngine;
 
 namespace Assets.Script
 {
-    [Serializable]
-    public static class Bonus
+    public class Bonus : MonoBehaviour
     {
-        public static float TimeBonus { get; set; } = 0;
+        public float TimeBonus { get; set; } = 0;
 
-        public static void ScoreUpdate()
+        private ScoreCounter _score;
+        private void Awake()
+        {
+            _score = GetComponent<ScoreCounter>();
+        }
+        public void ScoreUpdate()
         {
             if (TimeBonus > 10)
             {
-                ScoreCounter.ScoreDoublePlus += ScoreCounter.DoublePlus;
+                _score.ChangeScore(_score.Counter += 2);
             }
             else if (TimeBonus <= 10)
             {
-                ScoreCounter.ScorePlus += ScoreCounter.Plus;
+                _score.ChangeScore(_score.Counter += 1);
             }
         }
     }

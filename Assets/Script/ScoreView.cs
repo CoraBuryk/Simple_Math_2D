@@ -1,21 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using System.Linq;
-using Assets.Script;
 
-public class ScoreView : MonoBehaviour
+namespace Assets.Script
 {
-    [SerializeField] private Text score;
-
-    private void Start()
+    public class ScoreView : MonoBehaviour
     {
-        HandleScoreDelegate();
-    }
+        [SerializeField] private TextMeshProUGUI score;
 
-    public void HandleScoreDelegate()
-    {
-        score.text = $"Score: {ScoreCounter.Counter}";
+        private ScoreCounter _scoreCounter;
+
+        private void Awake()
+        {
+            _scoreCounter = GetComponent<ScoreCounter>();
+            _scoreCounter.ScoreChange += HandleScoreDelegate; 
+        }
+
+        private void Start()
+        {
+           HandleScoreDelegate();
+        }
+
+        public void HandleScoreDelegate()
+        {           
+            score.text = $"Score:{_scoreCounter.Counter}";
+        }
     }
 }

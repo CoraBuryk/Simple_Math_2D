@@ -1,54 +1,53 @@
-using Assets.Script;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Difficulty : MonoBehaviour
+namespace Assets.Script
 {
-    [SerializeField]private float _difficultyUp;
-    GeneratorBehavior _generator;
+    public class Difficulty : MonoBehaviour
+    {
+        [SerializeField] private float _difficultyUp;
+        private GeneratorBehavior _generator;
 
-    private void Awake()
-    {
-        _generator = GetComponent<GeneratorBehavior>();   
-    }
-    public IEnumerator Difficlty()
-    {
-        while (_difficultyUp > 0)
+        private void Awake()
         {
-            _difficultyUp -= Time.deltaTime;
-            yield return null;
+            _generator = GetComponent<GeneratorBehavior>();
         }
-    }
+        public IEnumerator Difficlty()
+        {
+            while (_difficultyUp > 0)
+            {
+                _difficultyUp -= Time.deltaTime;
+                yield return null;
+            }
+        }
 
-    public void Variation()
-    {
-        StartCoroutine(Difficlty());
-        if (_difficultyUp > 1250f)
+        public void Variation()
         {
-            _generator.GetQuestionForSubtraction();
-        }
-        else if (_difficultyUp < 1250f && _difficultyUp > 625f)
-        {
-            _generator.GetQuestionForDivision();
-        }
-        else if (_difficultyUp < 1250f && _difficultyUp > 625f)
-        {
-            _generator.GetQuestionForSubtractionUp();
-        }else
-        {
-            _generator.GetQuestionForDivisionUp();
-        }
-    }
-
-    public void RestartDifficulty()
-    {
-        if(HealthController.NumOfHeart <=0)
-        {
-            _generator.GetQuestionForSubtraction();
-            if (_difficultyUp < 2500f)
-                _difficultyUp = 2500f;
             StartCoroutine(Difficlty());
+            if (_difficultyUp > 30_000f)
+            {
+                _generator.GetQuestionForLevelOne();
+            }
+            else if (_difficultyUp < 30_000f && _difficultyUp > 25_000f)
+            {
+                _generator.GetQuestionForLevelTwo();
+            }
+            else if (_difficultyUp < 25_000f && _difficultyUp > 15_000f)
+            {
+                _generator.GetQuestionForLevelThree();
+            }
+            else
+            {
+                _generator.GetQuestionForLevelFour();
+            }
+        }
+
+        public void RestartDifficulty()
+        {
+             _generator.GetQuestionForLevelOne();
+             if (_difficultyUp < 35_000f)
+             _difficultyUp = 35_000f;
+             StartCoroutine(Difficlty());
         }
     }
 }
