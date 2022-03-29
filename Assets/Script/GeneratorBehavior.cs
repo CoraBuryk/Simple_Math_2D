@@ -8,7 +8,7 @@ namespace Assets.Script
         [SerializeField] private TextMeshProUGUI _example;
         [SerializeField] internal TextMeshProUGUI[] _buttonText;
 
-        public Numbers numbers;
+        public Numbers numbers = new Numbers();
 
         public int Total { get => numbers.Result; private set => Total = value; }
 

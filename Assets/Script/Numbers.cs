@@ -1,8 +1,8 @@
-﻿using System;
+﻿//using System;
+using UnityEngine;
 
 namespace Assets.Script
 {
-    [Serializable]
     public class Numbers
     {
         public int Result { get; private set; }
@@ -11,171 +11,122 @@ namespace Assets.Script
         public int X { get; set; }
         public string MathExample { get; private set; }
 
-        public void LevelOne()
-        {
-            Random random = new Random();
-            Num1 = random.Next(0, 10);
-            Num2 = random.Next(0, Num1);
-            Result = Num1 - Num2; 
-        }
-
         public void DoLevelOne()
-        {
+        {               
             do
             {
-                LevelOne();
+                Num1 = Random.Range(0, 10);
+                Num2 = Random.Range(0, Num1);
+                Result = Num1 - Num2;
             } while (Result >= 4 || Result <= 0);
 
             MathExample = $"{Num1} - {Num2} = ?";
-            LevelOne();
-        }
-
-        public void LevelTwo()
-        {
-            Random random = new Random();
-            Num1 = random.Next(1, 10);
-            Num2 = random.Next(1, Num1);
-            if (Num1 % Num2 == 0 && Num1 * 1 == Num2 || Num2 * 2 == Num1 || Num2 * 3 == Num1)
-            {
-                Result = Num1 / Num2;
-            } else Result = 0;         
         }
 
         public void DoLevelTwo()
         {
             do
             {
-                LevelTwo();
+                Num1 = Random.Range(1, 10);
+                Num2 = Random.Range(1, Num1);
+                if (Num1 % Num2 == 0 && Num1 * 1 == Num2 || Num2 * 2 == Num1 || Num2 * 3 == Num1)
+                {
+                    Result = Num1 / Num2;
+                }
+                else Result = 0;
             } while (Result >= 4 || Result == 0);
 
             MathExample = $"{Num1} / {Num2} = ?";
-            LevelTwo();
-        }
-
-        public void LevelThree()
-        {
-            Random random = new Random();
-            Num1 = random.Next(10,100);
-            Num2 = random.Next(10, Num1);
-            Result = Num1 - Num2;
         }
 
         public void DoLevelThree()
         {
             do
             {
-                LevelThree();
+                Num1 = Random.Range(10, 100);
+                Num2 = Random.Range(10, Num1);
+                Result = Num1 - Num2;
             } while (Result >= 4 || Result == 0);
 
             MathExample = $"{Num1} - {Num2} = ?";
-            LevelThree();
-        }
 
-        public void LevelFour()
-        {
-            Random random = new Random();
-            Num1 = random.Next(10, 100);
-            Num2 = random.Next(10, Num1);
-            if (Num1 % Num2 == 0 && Num1 * 1 == Num2 || Num2 * 2 == Num1 || Num2 * 3 == Num1)
-            {
-                Result = Num1 / Num2;
-            } else Result = 0;
         }
 
         public void DoLevelFour()
-        {
+        {      
             do
             {
-                LevelFour();
+                Num1 = Random.Range(10, 100);
+                Num2 = Random.Range(10, Num1);
+                if (Num1 % Num2 == 0 && Num1 * 1 == Num2 || Num2 * 2 == Num1 || Num2 * 3 == Num1)
+                {
+                    Result = Num1 / Num2;
+                }
+                else Result = 0;
             } while (Result >= 4 || Result == 0);
 
             MathExample = $" {Num1} / {Num2} = ?";
-            LevelFour();
-        }
 
-        public void LevelFive()
-        {
-            Random random = new Random();
-            Num1 = random.Next(1, 50);
-            Num2 = random.Next(1, Num1);
-
-            if ((Num1 - Num2) % 2 == 0 && 2 * 1 == (Num1 - Num2) || 2 * 2 == (Num1 - Num2) || 2 * 3 == (Num1 - Num2))
-            {
-                Result = (Num1 - Num2) / 2;
-            } else Result = 0;
         }
 
         public void DoLevelFive()
-        {
+        {     
             do
             {
-                LevelFive();
+                Num1 = Random.Range(1, 50);
+                Num2 = Random.Range(1, Num1);
+
+                if ((Num1 - Num2) % 2 == 0 && 2 * 1 == (Num1 - Num2) || 2 * 2 == (Num1 - Num2) || 2 * 3 == (Num1 - Num2))
+                {
+                    Result = (Num1 - Num2) / 2;
+                }
+                else Result = 0;
             } while (Result >= 4 || Result == 0);
 
             MathExample = $"({Num1} - {Num2}) / 2 = ?";
-            LevelFive();
-        }
-
-        public void LevelSix()
-        {
-            Random random = new Random();
-            Num1 = random.Next(100, 150);
-            Num2 = random.Next(100, Num1);
-
-            if ((Num1 - Num2) % 2 == 0 && 2 * 1 == (Num1 - Num2) || 2 * 2 == (Num1 - Num2) || 2 * 3 == (Num1 - Num2))
-            {
-                Result = (Num1 - Num2) / 2;
-            }else Result = 0;
         }
 
         public void DoLevelSix()
-        {
+        {           
             do
             {
-                LevelSix();
+                Num1 = Random.Range(100, 150);
+                Num2 = Random.Range(100, Num1);
+
+                if ((Num1 - Num2) % 2 == 0 && 2 * 1 == (Num1 - Num2) || 2 * 2 == (Num1 - Num2) || 2 * 3 == (Num1 - Num2))
+                {
+                    Result = (Num1 - Num2) / 2;
+                }
+                else Result = 0;
             } while (Result >= 4 || Result == 0);
 
             MathExample = $"({Num1} - {Num2}) / 2 = ?";
-            LevelSix();
-        }
-
-        public void LevelSeven()
-        {
-            Random random = new Random();
-            Num1 = random.Next(1, 50);
-            Num2 = random.Next(1, Num1);
-            X = random.Next(0, 3);
-            Result = (Num1 - Num2) * X;
         }
 
         public void DoLevelSeven()
-        {
+        {         
             do
             {
-                LevelSeven();
+                Num1 = Random.Range(1, 50);
+                Num2 = Random.Range(1, Num1);
+                X = Random.Range(0, 3);
+                Result = (Num1 - Num2) * X;
             } while (Result >= 4 || Result == 0);
 
             MathExample = $" ({Num1} - {Num2}) * {X} = ?";
-            LevelSeven();
-        }
-        public void LevelEight()
-        {
-            Random random = new Random();
-            Num1 = random.Next(50, 100);
-            Num2 = random.Next(50, Num1);
-            X = random.Next(0, 3);
-            Result = (Num1 - Num2) * X;
         }
 
         public void DoLevelEight()
-        {
+        {        
             do
             {
-                LevelEight();
+                Num1 = Random.Range(50, 100);
+                Num2 = Random.Range(50, Num1);
+                X = Random.Range(0, 3);
+                Result = (Num1 - Num2) * X;
             } while (Result >= 4 || Result == 0);
 
             MathExample = $" ({Num1} - {Num2}) * {X} = ?";
-            LevelEight();
         }
     }
 }
