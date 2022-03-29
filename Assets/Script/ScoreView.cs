@@ -5,13 +5,11 @@ namespace Assets.Script
 {
     public class ScoreView : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI score;
-
-        private ScoreCounter _scoreCounter;
+        [SerializeField] private TextMeshProUGUI _score;
+        [SerializeField] private ScoreCounter _scoreCounter;
 
         private void Awake()
         {
-            _scoreCounter = GetComponent<ScoreCounter>();
             _scoreCounter.ScoreChange += HandleScoreDelegate; 
         }
 
@@ -22,7 +20,7 @@ namespace Assets.Script
 
         public void HandleScoreDelegate()
         {           
-            score.text = $"Score:{_scoreCounter.Counter}";
+            _score.text = $"Score:{_scoreCounter.Counter}";
         }
     }
 }

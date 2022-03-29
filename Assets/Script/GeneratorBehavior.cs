@@ -1,14 +1,12 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Assets.Script
 {
     public class GeneratorBehavior : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI example;
-        [SerializeField] internal TextMeshProUGUI[] ButtonText;
-        [SerializeField] private Button[] button;
+        [SerializeField] private TextMeshProUGUI _example;
+        [SerializeField] internal TextMeshProUGUI[] _buttonText;
 
         public Numbers numbers;
 
@@ -16,9 +14,9 @@ namespace Assets.Script
 
         private void Awake()
         {
-            ButtonText[0].text = "1";
-            ButtonText[1].text = "2";
-            ButtonText[2].text = "3";
+            _buttonText[0].text = "1";
+            _buttonText[1].text = "2";
+            _buttonText[2].text = "3";
 
             GetQuestionForLevelOne();
         }
@@ -26,25 +24,47 @@ namespace Assets.Script
         public void GetQuestionForLevelOne()
         {
             numbers.DoLevelOne();
-            example.text = numbers.MathExample;
+            _example.text = numbers.MathExample;
         }
 
         public void GetQuestionForLevelTwo()
         {
             numbers.DoLevelTwo();
-            example.text = numbers.MathExample;
+            _example.text = numbers.MathExample;
         }
 
         public void GetQuestionForLevelThree()
         {
             numbers.DoLevelThree();
-            example.text = numbers.MathExample;
+            _example.text = numbers.MathExample;
         }
 
         public void GetQuestionForLevelFour()
         {
             numbers.DoLevelFour();
-            example.text = numbers.MathExample;
+            _example.text = numbers.MathExample;
+        }
+
+        public void GetQuestionForLevelFive()
+        {
+            numbers.DoLevelFive();
+            _example.text = numbers.MathExample;
+        }
+
+        public void GetQuestionForLevelSix()
+        {
+            numbers.DoLevelSix();
+            _example.text = numbers.MathExample;
+        }
+        public void GetQuestionForLevelSeven()
+        {
+            numbers.DoLevelSeven();
+            _example.text = numbers.MathExample;
+        }
+        public void GetQuestionForLevelEight()
+        {
+            numbers.DoLevelEight();
+            _example.text = numbers.MathExample;
         }
     }
 }

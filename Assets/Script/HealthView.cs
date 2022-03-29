@@ -5,16 +5,14 @@ namespace Assets.Script
 {
     public class HealthView : MonoBehaviour
     {
-        [SerializeField] private Image[] hearts;
-        [SerializeField] private Sprite fullHeart;
-        [SerializeField] private Sprite emptyHeart;
-
-        private HealthController _health;
+        [SerializeField] private Image[] _hearts;
+        [SerializeField] private Sprite _fullHeart;
+        [SerializeField] private Sprite _emptyHeart;
+        [SerializeField] private HealthController _health;
 
         private void Awake()
         {
-            _health = GetComponent<HealthController>();
-            _health.HealthControl += HeartsView;
+            _health.HealthChange += HeartsView;
         }
 
         private void Start()
@@ -24,15 +22,15 @@ namespace Assets.Script
 
         public void HeartsView()
         {
-            for (int i = 0; i < hearts.Length; i++)
+            for (int i = 0; i < _hearts.Length; i++)
             {
                 if (i < _health.NumOfHeart)
                 {
-                    hearts[i].sprite = fullHeart;
+                    _hearts[i].sprite = _fullHeart;
                 }
                 else
                 {
-                    hearts[i].sprite = emptyHeart;
+                    _hearts[i].sprite = _emptyHeart;
                 }
             }
         }
