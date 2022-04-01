@@ -26,43 +26,36 @@ namespace Assets.Script
             if (Level <= numbersOfExamplesForLvl1)
             {
                 _generator.GetQuestionForLevelOne();
-                Level++;
             }
             else if(Level <= numbersOfExamplesForLvl2)
             {
                 _generator.GetQuestionForLevelTwo();
-                Level++;
             }
             else if(Level <= numbersOfExamplesForLvl3)
             {
                 _generator.GetQuestionForLevelThree();
-                Level++;
             }
             else if(Level <= numbersOfExamplesForLvl4)
             {
                 _generator.GetQuestionForLevelFour();
-                Level++;
             }
             else if (Level <= numbersOfExamplesForLvl5)
             {
                 _generator.GetQuestionForLevelFive();
-                Level++;
             }
             else if(Level <= numbersOfExamplesForLvl6)
             {
                 _generator.GetQuestionForLevelSix();
-                Level++;
             }
             else if (Level <= numbersOfExamplesForLvl7)
             {
                 _generator.GetQuestionForLevelSeven();
-                Level++;
             }
             else
             {
                 _generator.GetQuestionForLevelEight();
-                Level++;
             }
+            Level++;
         }
     }
 }

@@ -10,9 +10,14 @@ namespace Assets.Script
         [SerializeField] private Sprite _emptyHeart;
         [SerializeField] private HealthController _health;
 
-        private void Awake()
+        private void OnEnable()
         {
             _health.HealthChange += HeartsView;
+        }
+
+        private void OnDisable()
+        {
+            _health.HealthChange -= HeartsView;
         }
 
         private void Start()

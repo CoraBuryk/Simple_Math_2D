@@ -8,28 +8,34 @@ namespace Assets.Script
     {
         [SerializeField] private GameplayController _gameplayControl;
 
-        public float TimeLeft { get; set; }
-
+        public float TimeLeft { get; private set; }
         public float TimeBonus { get; set; } = 0;
 
         public event Action TimerChange;
+
+        private int _delta = 0;
 
         public IEnumerator StartTimer()
         {
             TimerSwitch();
             while (TimeLeft > 0)
             {
-                TimeLeft -= Time.deltaTime;
+                TimeLeft -= _delta;
                 TimeBonus = TimeLeft;
-                _gameplayControl.TimeZero();
                 TimerChange?.Invoke();
-                yield return null;
+                _gameplayControl.TimeZero();
+                yield return new WaitForSeconds(1);
             }
+        }
+
+        public void StopTimer(int delta)
+        {
+            _delta = delta;
         }
 
         public void TimerSwitch()
         {
-            TimeLeft = 15f;
+            TimeLeft = 15;
         }
     }
 }

@@ -8,12 +8,17 @@ namespace Assets.Script
         [SerializeField] private TextMeshProUGUI _timerText;
         [SerializeField] private TimerController _timer;
 
-        private void Awake()
+        private void OnEnable()
         {
             _timer.TimerChange += UpdateTimeText;
         }
 
-        public void Start()
+        private void OnDisable()
+        {
+            _timer.TimerChange -= UpdateTimeText;
+        }
+
+        private void Start()
         {
             StartCoroutine(_timer.StartTimer());
         }

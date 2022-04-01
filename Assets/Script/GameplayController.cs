@@ -11,12 +11,26 @@ namespace Assets.Script
         [SerializeField] private HealthController _health;
         [SerializeField] private TimerController _timer;
         [SerializeField] private Button[] _buttons;
+        [SerializeField] private Canvas _gameOverCanvas;
+        [SerializeField] private Canvas _main;
+        [SerializeField] private TimerController _timerController;
+        [SerializeField] private GameOverScript _gameOverScript;
 
         private void Awake()
         {
             _buttons[0].onClick.AddListener(() => AnswerButton(0));
             _buttons[1].onClick.AddListener(() => AnswerButton(1));
-            _buttons[2].onClick.AddListener(() => AnswerButton(2));
+            _buttons[2].onClick.AddListener(() => AnswerButton(2));           
+        }
+
+        private void OnEnable()
+        {
+            _timerController.TimerChange += TimeZero;
+        }
+
+        private void OnDisable()
+        {
+            _timerController.TimerChange -= TimeZero;
         }
 
         public void AnswerButton(int index)
@@ -29,7 +43,7 @@ namespace Assets.Script
             {
                 AnswerWrong();
             }
-            End();
+            OutOfHearts();
         }
 
         public void AnswerRight()
@@ -61,7 +75,7 @@ namespace Assets.Script
 
         public void TimeZero()
         {
-            if (_timer.TimeLeft < 0)
+            if (_timer.TimeLeft <= 0)
             {
                 _timer.TimerSwitch();
                 _generatorBehavior.GetQuestionForLevelOne();
@@ -69,11 +83,12 @@ namespace Assets.Script
             }
         }
 
-        public void End()
+        public void OutOfHearts()
         { 
             if(_health.NumOfHeart == 0)
             {
-                Restart();
+                _timerController.StopTimer(0);
+                _gameOverScript.End();
             }
         }
 
@@ -83,6 +98,16 @@ namespace Assets.Script
             _health.ResetHealth();
             _timer.TimerSwitch();
             _score.ChangeScore(0);
+            _timerController.StopTimer(1);
+        }
+
+        public void ForExit()
+        {
+            _level.RestartLevel();
+            _health.ResetHealth();
+            _timer.TimerSwitch();
+            _score.ChangeScore(0);
+            _timerController.StopTimer(0);
         }
     }
 }
